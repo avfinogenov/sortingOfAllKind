@@ -1,9 +1,11 @@
 ﻿#include <iostream>
 #include <vector>
+#include <list>
 #include "arrays.h"
 
 void bubbleSort(std::vector<int>& input);
 void selectionSort(std::vector<int>& input);
+void insertSort(std::vector<int>& input);
 
 int main()
 {
@@ -19,7 +21,8 @@ int main()
         }
         std::cout << std::endl;
         //bubbleSort(forSort[i]);
-        selectionSort(forSort[i]);
+        //selectionSort(forSort[i]);
+        insertSort(forSort[i]);
         for (int j = 0; j < forSort[i].size(); ++j)
         {
             std::cout << forSort[i][j] << " ";
@@ -68,6 +71,9 @@ void bubbleSort(std::vector<int>& input)
 
 void selectionSort(std::vector<int>& input)
 {
+    
+    
+    
     for (int i = 0; i < input.size(); ++i)
     {
         int min = input[i];
@@ -81,9 +87,66 @@ void selectionSort(std::vector<int>& input)
         }
         input[i] = min;
     }
+    
 
 
 
 
+}
+
+void insertSort(std::vector<int>& input)
+{
+    std::vector<int> tmp;
+    tmp.push_back(input[0]);
+    input.erase(input.begin());
+  
+    int i = 0;
+    while (!input.empty())
+    {
+        if (i == 0)
+        {
+            if (input[0] < tmp[i])
+            {
+                tmp.insert(tmp.begin(), input[0]);
+                input.erase(input.begin());
+                ++i;
+                continue;
+            }
+        }
+        if (i < tmp.size() - 1)
+        {
+            //all but last
+           // if (input[0] >= tmp[i - 1] &&
+           //     input[0] <= tmp[i + 1])
+           // {
+           //     tmp.insert(tmp.begin() + i, input[0]);
+           // }
+        }
+        else
+        {
+            //last
+            if (input[0] > tmp[i])
+            {
+                tmp.push_back(input[0]);
+            }
+            else
+            {
+                while (i >= 0 && input[0] < tmp[i])
+                {
+                    --i;
+                }
+
+                tmp.insert(tmp.begin() + (i + 1), input[0]);
+            }
+            
+            
+            
+        }
+
+        input.erase(input.begin());
+        i = tmp.size() - 1;
+    }
+
+    input = tmp;
 
 }
