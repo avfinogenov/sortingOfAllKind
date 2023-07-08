@@ -113,35 +113,22 @@ void insertSort(std::vector<int>& input)
                 continue;
             }
         }
-        if (i < tmp.size() - 1)
+   
+    
+        if (input[0] > tmp[i])
         {
-            //all but last
-           // if (input[0] >= tmp[i - 1] &&
-           //     input[0] <= tmp[i + 1])
-           // {
-           //     tmp.insert(tmp.begin() + i, input[0]);
-           // }
+            tmp.push_back(input[0]);
         }
         else
         {
-            //last
-            if (input[0] > tmp[i])
+            while (i >= 0 && input[0] < tmp[i])
             {
-                tmp.push_back(input[0]);
+                --i;
             }
-            else
-            {
-                while (i >= 0 && input[0] < tmp[i])
-                {
-                    --i;
-                }
 
-                tmp.insert(tmp.begin() + (i + 1), input[0]);
-            }
-            
-            
-            
+            tmp.insert(tmp.begin() + (i + 1), input[0]);
         }
+            
 
         input.erase(input.begin());
         i = tmp.size() - 1;
