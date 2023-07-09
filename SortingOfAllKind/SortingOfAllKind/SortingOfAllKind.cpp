@@ -6,6 +6,7 @@
 void bubbleSort(std::vector<int>& input);
 void selectionSort(std::vector<int>& input);
 void insertSort(std::vector<int>& input);
+void mergeSort(std::vector<int>& input);
 
 int main()
 {
@@ -22,7 +23,8 @@ int main()
         std::cout << std::endl;
         //bubbleSort(forSort[i]);
         //selectionSort(forSort[i]);
-        insertSort(forSort[i]);
+        //insertSort(forSort[i]);
+        mergeSort(forSort[i]);
         for (int j = 0; j < forSort[i].size(); ++j)
         {
             std::cout << forSort[i][j] << " ";
@@ -136,4 +138,46 @@ void insertSort(std::vector<int>& input)
 
     input = tmp;
 
+}
+
+
+
+void mergeSort(std::vector<int>& input)
+{
+    if (input.size() == 1)
+    {
+        return;
+    }
+    //забить в них по пол массива
+    std::vector<int> l(input.begin(), input.begin() + input.size() / 2);
+    std::vector<int> r(input.begin() + input.size() / 2, input.end());
+    mergeSort(l);
+    mergeSort(r);
+    std::vector<int> result;
+    while (!l.empty() && !r.empty())
+    {
+        if (l[0] > r[0])
+        {
+            result.push_back(r[0]);
+            r.erase(r.begin());
+        }
+        else
+        {
+            result.push_back(l[0]);
+            l.erase(l.begin());
+        }
+    }
+    while (!l.empty())
+    {
+        result.push_back(l[0]);
+        l.erase(l.begin());
+
+    }
+    while (!r.empty())
+    {
+        result.push_back(r[0]);
+        r.erase(r.begin());
+
+    }
+    input = result;
 }
