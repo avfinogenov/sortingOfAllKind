@@ -25,7 +25,7 @@ std::vector<int> arr13{5, -2, 9, -1, 3};
 std::vector<int> arr14{-10, 4, -7, 6, -8};
 std::vector<int> arr15{3, -8, 2, -6, 1, -9, 4};
 
-std::vector<int> arr16{40, 33, 32, 31, 25, 24, 22};
+std::vector<int> arr16{40, 33, 32, 31, 25, 24, 22, 1, 5, 2};
 
 
 
