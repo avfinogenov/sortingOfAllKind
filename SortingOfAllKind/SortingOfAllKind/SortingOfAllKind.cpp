@@ -7,6 +7,7 @@ void bubbleSort(std::vector<int>& input);
 void selectionSort(std::vector<int>& input);
 void insertSort(std::vector<int>& input);
 void mergeSort(std::vector<int>& input);
+void quickSort(int* input, int size);
 
 int main()
 {
@@ -24,7 +25,8 @@ int main()
         //bubbleSort(forSort[i]);
         //selectionSort(forSort[i]);
         //insertSort(forSort[i]);
-        mergeSort(forSort[i]);
+        //mergeSort(forSort[i]);
+        quickSort(&forSort[i][0], forSort[i].size());
         for (int j = 0; j < forSort[i].size(); ++j)
         {
             std::cout << forSort[i][j] << " ";
@@ -180,4 +182,66 @@ void mergeSort(std::vector<int>& input)
 
     }
     input = result;
+}
+
+
+void quickSort(int* input, int size)
+{
+    //find a pivot
+    int pivotIndex = size / 2;
+    int endIndex = size - 1;
+    if (size > 2)
+    {
+        int l, m, r;
+        l = input[0];
+        r = input[endIndex];
+        m = input[pivotIndex];
+        input[0] = std::min(l, std::min(r, m));
+        input[endIndex] = std::max(l, std::max(r, m));
+        input[pivotIndex] = l + r + m - (input[0] + input[endIndex]);
+    }
+    else
+    {
+        return;
+    }
+    //do pivot magic
+    //move pivot to the right corner
+    std::swap(input[pivotIndex], input[endIndex]);
+    int pivotFinalPosition;
+    
+    while (true)
+    {
+        int i = 0;
+        int j = endIndex - 1;
+        // find left greater
+        
+        while (input[i] <= input[endIndex] && i < endIndex)
+        {
+            ++i;
+        }
+
+
+        // find right smaller
+        
+        while (input[j] > input[endIndex] && j > 0)
+        {
+            j--;
+        }
+        if (i > j)
+        {
+            // return pivot
+            pivotFinalPosition = i;
+            std::swap(input[i], input[endIndex]);
+            break;
+        }
+        std::swap(input[i], input[j]);
+
+
+    }
+    
+    //split array by pivot
+    
+    quickSort(&input[0], pivotFinalPosition);
+    quickSort(&input[pivotFinalPosition + 1], size - pivotFinalPosition - 1);
+
 }
