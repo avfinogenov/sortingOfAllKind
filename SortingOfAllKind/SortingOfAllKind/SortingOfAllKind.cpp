@@ -11,9 +11,9 @@ void quickSort(int* input, int size);
 
 int main()
 {
-    std::vector<int> forSort[15]{ arr1, arr2, arr3, arr4, arr5, arr6, arr7, arr8, arr9, arr10, arr11, arr12, arr13, arr14, arr15 };
+    std::vector<int> forSort[16]{ arr1, arr2, arr3, arr4, arr5, arr6, arr7, arr8, arr9, arr10, arr11, arr12, arr13, arr14, arr15, arr16 };
 
-    for (int i = 0; i < 15; ++i)
+    for (int i = 0; i < 16; ++i)
     {
         std::vector<int> asd(forSort[i]);
         asd = forSort[i];
