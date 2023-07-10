@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
 #include <list>
+#include "arrayFilling.h"
 #include "arrays.h"
 
 void bubbleSort(std::vector<int>& input);
@@ -10,48 +11,184 @@ void mergeSort(std::vector<int>& input);
 void quickSort(int* input, int size);
 void radixSort(std::vector<int>& input);
 
+//debug
+bool checkPivot(int* input, int pivotPosition, int size);
+
 int main()
 {
-    std::vector<int> forSort[16]{ arr1, arr2, arr3, arr4, arr5, arr6, arr7, arr8, arr9, arr10, arr11, arr12, arr13, arr14, arr15, arr16 };
+    //std::vector<int> forSort[16]{ arr1, arr2, arr3, arr4, arr5, arr6, arr7, arr8, arr9, arr10, arr11, arr12, arr13, arr14, arr15, arr16 };
 
-    for (int i = 0; i < 16; ++i)
+    std::vector<int> forSort;
+    
+
+    //bubble sort
+    std::cout << "bubble sort\n";
+    for (int i = 0; i < 10; ++i)
     {
-        std::vector<int> asd(forSort[i]);
-        asd = forSort[i];
-        for (int j = 0; j < forSort[i].size(); ++j)
+        std::cout << i << " test\n";
+        fillArrayRand(forSort, 1000);
+        /*for (int j = 0; j < forSort.size(); ++j)
         {
-            std::cout << forSort[i][j] << " ";
+            std::cout << forSort[j] << " ";
         }
-        std::cout << std::endl;
-        //bubbleSort(forSort[i]);
-        //selectionSort(forSort[i]);
-        //insertSort(forSort[i]);
-        //mergeSort(forSort[i]);
-        //quickSort(&forSort[i][0], forSort[i].size());
-        radixSort(forSort[i]);
-        for (int j = 0; j < forSort[i].size(); ++j)
+        std::cout << std::endl;*/
+        bubbleSort(forSort);
+        
+        /*for (int j = 0; j < forSort.size(); ++j)
         {
-            std::cout << forSort[i][j] << " ";
+            std::cout << forSort[j] << " ";
         }
-        std::cout << std::endl;
-    }
-
-
-    for (int i = 0; i < 15; ++i)
-    {
-        for (int j = 0; j < forSort[i].size() - 1; ++j)
+        std::cout << std::endl;*/
+        for (int j = 0; j < forSort.size() - 1; ++j)
         {
-            if (forSort[i][j] > forSort[i][j + 1])
+            if (forSort[j] > forSort[j + 1])
             {
                 std::cout << "wrong at " << i << " element " << j << std::endl;
                 return 0;
             }
         }
     }
+    //selection sort
+    std::cout << "selection sort\n";
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << i << " test\n";
+        fillArrayRand(forSort, 1000);
+        /*for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        selectionSort(forSort);
+        
+        /*for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        for (int j = 0; j < forSort.size() - 1; ++j)
+        {
+            if (forSort[j] > forSort[j + 1])
+            {
+                std::cout << "wrong at " << i << " element " << j << std::endl;
+                return 0;
+            }
+        }
+    }
+    //insert sort
+    std::cout << "insert sort\n";
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << i << " test\n";
+        fillArrayRand(forSort, 1000);
+        /*for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        insertSort(forSort);
+        
+        /*for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        for (int j = 0; j < forSort.size() - 1; ++j)
+        {
+            if (forSort[j] > forSort[j + 1])
+            {
+                std::cout << "wrong at " << i << " element " << j << std::endl;
+                return 0;
+            }
+        }
+    }
+    //merge sort
+    std::cout << "merge sort\n";
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << i << " test\n";
+        fillArrayRand(forSort, 1000);
+        /*for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        mergeSort(forSort);
+        
+        /*for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        for (int j = 0; j < forSort.size() - 1; ++j)
+        {
+            if (forSort[j] > forSort[j + 1])
+            {
+                std::cout << "wrong at " << i << " element " << j << std::endl;
+                return 0;
+            }
+        }
+    }
+    //quick sort
+    std::cout << "quick sort\n";
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << i << " test\n";
+        fillArrayRand(forSort, 1000);
+        /*for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        quickSort(&forSort[0], forSort.size());
+        /*for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        for (int j = 0; j < forSort.size() - 1; ++j)
+        {
+            if (forSort[j] > forSort[j + 1])
+            {
+                std::cout << "wrong at " << i << " element " << j << std::endl;
+                return 0;
+            }
+        }
+    }
+    //radix sort
+    std::cout << "radix sort\n";
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << i << " test\n";
+        fillArrayRand(forSort, 1000);
+        /*for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        
+        radixSort(forSort);
+       /* for (int j = 0; j < forSort.size(); ++j)
+        {
+            std::cout << forSort[j] << " ";
+        }
+        std::cout << std::endl;*/
+        for (int j = 0; j < forSort.size() - 1; ++j)
+        {
+            if (forSort[j] > forSort[j + 1])
+            {
+                std::cout << "wrong at " << i << " element " << j << std::endl;
+                return 0;
+            }
+        }
+    }
+
+
+   
     std::cout << "test succes\n";
 
 
-    std::cout << "Hello world!" << std::endl;
+    
     return 0;
 }
 
@@ -187,6 +324,7 @@ void mergeSort(std::vector<int>& input)
 }
 
 
+
 void quickSort(int* input, int size)
 {
     //find a pivot
@@ -201,10 +339,27 @@ void quickSort(int* input, int size)
         input[0] = std::min(l, std::min(r, m));
         input[endIndex] = std::max(l, std::max(r, m));
         input[pivotIndex] = l + r + m - (input[0] + input[endIndex]);
+        if (size == 3)
+        {
+            return;
+        }
     }
     else
     {
-        return;
+        if (size == 1)
+        {
+            return;
+        }
+        if (size == 2)
+        {
+            int max = std::max(input[0], input[1]);
+            int min = std::min(input[0], input[1]);
+            input[0] = min;
+            input[1] = max;
+            return;
+
+        }
+        
     }
     //do pivot magic
     //move pivot to the right corner
@@ -243,9 +398,41 @@ void quickSort(int* input, int size)
     
     //split array by pivot
     
-    quickSort(&input[0], pivotFinalPosition);
-    quickSort(&input[pivotFinalPosition + 1], size - pivotFinalPosition - 1);
+   /* bool tmp = checkPivot(&input[0], pivotFinalPosition, size - pivotFinalPosition - 1);
 
+    if (!tmp)
+    {
+        std::cout << "find ya\n";
+    }*/
+    quickSort(&input[0], pivotFinalPosition);
+    if (size - pivotFinalPosition - 1 > 0)
+    {
+        quickSort(&input[pivotFinalPosition + 1], size - pivotFinalPosition - 1);
+
+    }
+    
+
+}
+//debug
+bool checkPivot(int* input, int pivotPosition, int size)
+{
+    int pivot = input[pivotPosition];
+    for (int i = 0; i < pivotPosition; ++i)
+    {
+        if (input[i] > pivot)
+        {
+            return false;
+        }
+    }
+
+    for (int i = pivotPosition + 1; i < pivotPosition + 1 + size; ++i)
+    {
+        if (pivot > input[i])
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 
