@@ -9,6 +9,7 @@ void bubbleSort(std::vector<int>& input);
 void selectionSort(std::vector<int>& input);
 void insertSort(std::vector<int>& input);
 void mergeSort(std::vector<int>& input);
+void quickSort(std::vector<int>& inputV);
 void quickSort(int* input, int size);
 void radixSort(std::vector<int>& input);
 
@@ -34,11 +35,13 @@ int main()
     prints.push_back("insert sort\n");
     prints.push_back("merge sort\n");
     prints.push_back("radix sort\n");
+    prints.push_back("quick sort\n");
     funcs.push_back(&bubbleSort);
     funcs.push_back(&selectionSort);
     funcs.push_back(&insertSort);
     funcs.push_back(&mergeSort);
     funcs.push_back(&radixSort);
+    funcs.push_back(&quickSort);
     for (int funcsIndex = 0; funcsIndex < funcs.size(); ++funcsIndex)
     {
 
@@ -49,7 +52,7 @@ int main()
         for (int i = 0; i < 10; ++i)
         {
             std::cout << i << " test\n";
-            fillArrayRand(forSort, 1000);
+            fillArrayRand(forSort, 10000);
             /*for (int j = 0; j < forSort.size(); ++j)
             {
                 std::cout << forSort[j] << " ";
@@ -74,32 +77,7 @@ int main()
        
         
     }
-    //quick sort
-    std::cout << "quick sort\n";
-    for (int i = 0; i < 10; ++i)
-    {
-        std::cout << i << " test\n";
-        fillArrayRand(forSort, 1000);
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        quickSort(&forSort[0], forSort.size());
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        for (int j = 0; j < forSort.size() - 1; ++j)
-        {
-            if (forSort[j] > forSort[j + 1])
-            {
-                std::cout << "wrong at " << i << " element " << j << std::endl;
-                return 0;
-            }
-        }
-    }
+   
 
    
     std::cout << "test succes\n";
@@ -240,10 +218,17 @@ void mergeSort(std::vector<int>& input)
     input = result;
 }
 
+void quickSort(std::vector<int>& inputV)
+{
+    int size = inputV.size();
+    int* input = &inputV[0];
+    quickSort(input, size);
 
+}
 
 void quickSort(int* input, int size)
 {
+    
     //find a pivot
     int pivotIndex = size / 2;
     int endIndex = size - 1;
