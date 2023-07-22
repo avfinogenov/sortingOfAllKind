@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
 #include <list>
+#include <map>
 #include "arrayFilling.h"
 #include "arrays.h"
 
@@ -14,120 +15,64 @@ void radixSort(std::vector<int>& input);
 //debug
 bool checkPivot(int* input, int pivotPosition, int size);
 
+typedef void (*func_t)(std::vector<int>& input);
+
 int main()
 {
+
+
+
     //std::vector<int> forSort[16]{ arr1, arr2, arr3, arr4, arr5, arr6, arr7, arr8, arr9, arr10, arr11, arr12, arr13, arr14, arr15, arr16 };
 
     std::vector<int> forSort;
-    
 
-    //bubble sort
-    std::cout << "bubble sort\n";
-    for (int i = 0; i < 10; ++i)
+
+    std::vector<func_t> funcs;
+    std::vector<std::string> prints;
+    prints.push_back("bubble sort\n");
+    prints.push_back("selection sort\n");
+    prints.push_back("insert sort\n");
+    prints.push_back("merge sort\n");
+    prints.push_back("radix sort\n");
+    funcs.push_back(&bubbleSort);
+    funcs.push_back(&selectionSort);
+    funcs.push_back(&insertSort);
+    funcs.push_back(&mergeSort);
+    funcs.push_back(&radixSort);
+    for (int funcsIndex = 0; funcsIndex < funcs.size(); ++funcsIndex)
     {
-        std::cout << i << " test\n";
-        fillArrayRand(forSort, 1000);
-        /*for (int j = 0; j < forSort.size(); ++j)
+
+
+
+        //bubble sort
+        std::cout << prints[funcsIndex];
+        for (int i = 0; i < 10; ++i)
         {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        bubbleSort(forSort);
-        
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        for (int j = 0; j < forSort.size() - 1; ++j)
-        {
-            if (forSort[j] > forSort[j + 1])
+            std::cout << i << " test\n";
+            fillArrayRand(forSort, 1000);
+            /*for (int j = 0; j < forSort.size(); ++j)
             {
-                std::cout << "wrong at " << i << " element " << j << std::endl;
-                return 0;
+                std::cout << forSort[j] << " ";
+            }
+            std::cout << std::endl;*/
+            funcs[funcsIndex](forSort);
+
+            /*for (int j = 0; j < forSort.size(); ++j)
+            {
+                std::cout << forSort[j] << " ";
+            }
+            std::cout << std::endl;*/
+            for (int j = 0; j < forSort.size() - 1; ++j)
+            {
+                if (forSort[j] > forSort[j + 1])
+                {
+                    std::cout << "wrong at " << i << " element " << j << std::endl;
+                    return 0;
+                }
             }
         }
-    }
-    //selection sort
-    std::cout << "selection sort\n";
-    for (int i = 0; i < 10; ++i)
-    {
-        std::cout << i << " test\n";
-        fillArrayRand(forSort, 1000);
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        selectionSort(forSort);
+       
         
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        for (int j = 0; j < forSort.size() - 1; ++j)
-        {
-            if (forSort[j] > forSort[j + 1])
-            {
-                std::cout << "wrong at " << i << " element " << j << std::endl;
-                return 0;
-            }
-        }
-    }
-    //insert sort
-    std::cout << "insert sort\n";
-    for (int i = 0; i < 10; ++i)
-    {
-        std::cout << i << " test\n";
-        fillArrayRand(forSort, 1000);
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        insertSort(forSort);
-        
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        for (int j = 0; j < forSort.size() - 1; ++j)
-        {
-            if (forSort[j] > forSort[j + 1])
-            {
-                std::cout << "wrong at " << i << " element " << j << std::endl;
-                return 0;
-            }
-        }
-    }
-    //merge sort
-    std::cout << "merge sort\n";
-    for (int i = 0; i < 10; ++i)
-    {
-        std::cout << i << " test\n";
-        fillArrayRand(forSort, 1000);
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        mergeSort(forSort);
-        
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        for (int j = 0; j < forSort.size() - 1; ++j)
-        {
-            if (forSort[j] > forSort[j + 1])
-            {
-                std::cout << "wrong at " << i << " element " << j << std::endl;
-                return 0;
-            }
-        }
     }
     //quick sort
     std::cout << "quick sort\n";
@@ -155,34 +100,6 @@ int main()
             }
         }
     }
-    //radix sort
-    std::cout << "radix sort\n";
-    for (int i = 0; i < 10; ++i)
-    {
-        std::cout << i << " test\n";
-        fillArrayRand(forSort, 1000);
-        /*for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        
-        radixSort(forSort);
-       /* for (int j = 0; j < forSort.size(); ++j)
-        {
-            std::cout << forSort[j] << " ";
-        }
-        std::cout << std::endl;*/
-        for (int j = 0; j < forSort.size() - 1; ++j)
-        {
-            if (forSort[j] > forSort[j + 1])
-            {
-                std::cout << "wrong at " << i << " element " << j << std::endl;
-                return 0;
-            }
-        }
-    }
-
 
    
     std::cout << "test succes\n";
