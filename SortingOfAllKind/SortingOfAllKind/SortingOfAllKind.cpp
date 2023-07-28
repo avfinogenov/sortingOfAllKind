@@ -1,30 +1,45 @@
-﻿#include <iostream>
+﻿/**
+    arrays.h список готовых массивов для тестирования. На данный момент не используется
+    arrayFilling.h набор функций для заполнения массивов для тестирования
+    TemplateSort.h набор реализаций сортировок
+    todo.h + .cpp функция поразрядной сортировки, которая пока не переписана на шаблоны
+
+    Программа представляет собой тестовый модуль к сортировкам. 
+    Сортировки представленны ввиде заголовочного файла, который можно включать в другие проекты.
+
+    Некоторые комментарии на английском. 
+    Комментарии на английском - написаны в процессе разработки, на русском - на этапе полировки решения.
+*/
+
+#include <iostream>
 #include <vector>
 #include <list>
 #include <map>
+
 #include "arrayFilling.h"
 #include "arrays.h"
 #include "TemplateSort.h"
 
-
-
-//debug
-
-void radixSort(std::vector<T>& input);
 typedef void (*funcInt_t)(std::vector<int>& input);
 typedef void (*funcFloat_t)(std::vector<float>& input);
 
+
+
 int main()
 {
-
-
-
-    //std::vector<int> forSort[16]{ arr1, arr2, arr3, arr4, arr5, arr6, arr7, arr8, arr9, arr10, arr11, arr12, arr13, arr14, arr15, arr16 };
-
+    //инициализируем необходимые объекты
     std::vector<float> forSort;
 
-
+    //массив функций сортировки
     std::vector<funcFloat_t> funcs;
+    funcs.push_back(&bubbleSort);
+    funcs.push_back(&selectionSort);
+    funcs.push_back(&insertSort);
+    funcs.push_back(&mergeSort);
+    funcs.push_back(&quickSort);
+    //funcs.push_back(&radixSort);
+
+    //соответствующие им названия для вывода в консоль
     std::vector<std::string> prints;
     prints.push_back("bubble sort\n");
     prints.push_back("selection sort\n");
@@ -33,36 +48,21 @@ int main()
     prints.push_back("quick sort\n");
     //prints.push_back("radix sort\n");
     
-    funcs.push_back(&bubbleSort);
-    funcs.push_back(&selectionSort);
-    funcs.push_back(&insertSort);
-    funcs.push_back(&mergeSort);
-    funcs.push_back(&quickSort);
-    //funcs.push_back(&radixSort);
-    
+    //тестирование
     for (int funcsIndex = 0; funcsIndex < funcs.size(); ++funcsIndex)
     {
-
-
-
-        //bubble sort
+        //выводим имя тестируемой сортировки
         std::cout << prints[funcsIndex];
+        //10 итераций тестирования, хотя их можно сделать и больше
         for (int i = 0; i < 10; ++i)
         {
             std::cout << i << " test\n";
+            //заполняем массив для тестирования на 10000 элементов
             fillArrayRand(forSort, 10000);
-            /*for (int j = 0; j < forSort.size(); ++j)
-            {
-                std::cout << forSort[j] << " ";
-            }
-            std::cout << std::endl;*/
+            //выполняем сортировку
             funcs[funcsIndex](forSort);
 
-            /*for (int j = 0; j < forSort.size(); ++j)
-            {
-                std::cout << forSort[j] << " ";
-            }
-            std::cout << std::endl;*/
+            //проверяем на условие отсортированного массива
             for (int j = 0; j < forSort.size() - 1; ++j)
             {
                 if (forSort[j] > forSort[j + 1])
@@ -72,77 +72,10 @@ int main()
                 }
             }
         }
-       
-        
     }
-   
-
    
     std::cout << "test succes\n";
 
-
-    
     return 0;
 }
 
-
-void radixSort(std::vector<int>& input)
-{
-    //array for each digit
-
-    int exponent = 0;//not shure about translation, counter of digits in maximum
-    int maximum = input[0];
-    bool negative = false;
-    for (int i = 0; i < input.size(); ++i)
-    {
-        maximum = std::max(input[i], maximum);
-        if (input[i] < 0)
-        {
-            negative = true;
-        }
-    }
-    while (maximum > 0)
-    {
-        maximum = maximum / 10;
-        exponent++;
-    }
-    //iterations for the maximum number of digits in array
-    for (int i = 1; i <= exponent; ++i)
-    {
-        std::vector<int> tmp[10];
-        int digitFinder = std::pow(10, i);
-        for (int j = 0; j < input.size(); ++j)
-        {
-            tmp[(std::abs(input[j]) % digitFinder) / (digitFinder / 10)].push_back(input[j]);
-        }
-        input.erase(input.begin(), input.end());
-        //for each digit
-        for (int j = 0; j < 10; ++j)
-        {
-            for (int k = 0; k < tmp[j].size(); ++k)
-            {
-                input.push_back(tmp[j][k]);
-            }
-        }
-
-
-    }
-    std::vector<int> forSignSort[2];
-    for (int j = 0; j < input.size(); ++j)
-    {
-        forSignSort[input[j] >= 0].push_back(input[j]);
-    }
-    input.erase(input.begin(), input.end());
-
-    for (int i = forSignSort[0].size() - 1; i > 0; i--)
-    {
-        input.push_back(forSignSort[0][i]);
-    }
-    for (int i = 0; i < forSignSort[1].size(); i++)
-    {
-        input.push_back(forSignSort[1][i]);
-    }
-
-
-
-}

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-
+// набор простых тест кейсов
 std::vector<int> arr1{5, 2, 9, 1, 3};
 std::vector<int> arr2{10, 4, 7, 6, 8};
 std::vector<int> arr3{3, 8, 2, 6, 1, 9, 4};
