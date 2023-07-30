@@ -1,6 +1,7 @@
 ﻿/**
     arrays.h список готовых массивов для тестирования. На данный момент не используется
-    arrayFilling.h набор функций для заполнения массивов для тестирования
+    arrayFilling.h набор функций для заполнения массивов для тестирования,
+    находится в проекте searchingOFAllKind
     TemplateSort.h набор реализаций сортировок
     todo.h + .cpp функция поразрядной сортировки, которая пока не переписана на шаблоны
 
@@ -15,9 +16,9 @@
 #include <vector>
 #include <list>
 #include <map>
-
+//
 #include "arrayFilling.h"
-#include "arrays.h"
+//#include "arrays.h"
 #include "TemplateSort.h"
 
 typedef void (*funcInt_t)(std::vector<int>& input);
